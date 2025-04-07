@@ -1,0 +1,141 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+projectName = "Template"
+project = "#{projectName}.xcodeproj"
+buildNumberToUse = 1
+default_platform(:ios)
+
+platform :ios do
+  desc "Push a new beta build to TestFlight"
+  lane :beta do
+    increment_build_number
+    build_app
+    upload_to_testflight  
+  end
+
+  lane :buildLive do
+    ensure_git_status_clean
+    custom_increment_build_number
+    buildLiveNoInc
+  end
+
+  lane :buildDev do
+    ensure_git_status_clean
+    custom_increment_build_number
+    buildDevNoInc
+  end
+
+  lane :buildBoth do
+    custom_increment_build_number
+    buildLiveNoInc
+    buildDevNoInc
+  end
+
+  
+  lane :release do |options|
+    api_key = app_store_connect_api_key(
+      key_id: "KUPNG35MPB",
+      issuer_id: "fdc86929-c7c7-4567-a8cc-9104878665a8",
+      key_filepath: ".fastlane/AuthKey_KUPNG35MPB.p8",
+      duration: 1200, # optional (maximum 1200)
+      in_house: false # optional but may be required if using match/sigh
+    )
+  
+    # Use the passed .ipa path or fall back to a default
+    pilot(
+      api_key: api_key,
+      ipa: options[:ipa] || "Live.ipa",
+      skip_waiting_for_build_processing: true
+    )
+  end
+  
+  lane :clean_artifacts do |options|
+    path = options[:path]
+    ipa_dir = File.dirname(path)
+    ipa_file = File.basename(path)
+    dsym_file = ipa_file.gsub('.ipa', '.app.dSYM.zip')
+  
+    # Remove .ipa and .dSYM.zip
+    Dir.chdir(ipa_dir) do
+      sh("rm -f #{ipa_file}")
+      sh("rm -f #{dsym_file}")
+    end
+  
+    UI.message("✅ Cleaned up build artifacts: #{ipa_file} and #{dsym_file}")
+  end
+  
+  lane :custom_increment_build_number do
+    # Get the current date and time
+    current_time = Time.now
+  
+    # Build the custom number: YYMMDDHHMM
+    build_number = current_time.strftime("%y%m%d%H%M")
+  
+    # Set the build number
+    increment_build_number(build_number: build_number)
+  
+    commit_version_bump(message: "Build number set to: #{build_number}")
+    buildNumberToUse = build_number
+
+    UI.message("✅ Build number set to: #{build_number}")
+
+    
+  end
+  
+  
+
+  lane :sync_all_development do
+    match(type: "appstore", readonly: true)
+    gym(scheme: "Live")
+  end
+
+  lane :buildLiveNoInc do
+    ipa_path = gym(
+      project: project,
+      scheme: "Live",
+      clean: true,
+      export_xcargs: "-allowProvisioningUpdates",
+      output_name: "Live.ipa"
+    )
+    versionNumber = get_version_number(xcodeproj: project, target: "Live")
+    add_git_tag(tag: "Live-#{versionNumber}-#{buildNumberToUse}")
+    push_to_git_remote(
+      remote: "origin"
+    )
+    release(ipa: ipa_path) # Pass the generated .ipa path to the release lane
+  
+    # Cleanup: Remove the generated .ipa and .dSYM.zip files
+    clean_artifacts(path: ipa_path)
+  end
+
+  lane :buildDevNoInc do
+    ipa_path = gym(
+      project: project,
+      scheme: "Dev",
+      clean: true,
+      export_xcargs: "-allowProvisioningUpdates",
+      output_name: "Dev.ipa"
+    )
+
+    versionNumber = get_version_number(xcodeproj: project, target: "Dev")
+    add_git_tag(tag: "Dev-#{versionNumber}-#{buildNumberToUse}")
+    push_to_git_remote(
+      remote: "origin"
+    )
+    release(ipa: ipa_path)
+
+    clean_artifacts(path: ipa_path)
+  end
+end
