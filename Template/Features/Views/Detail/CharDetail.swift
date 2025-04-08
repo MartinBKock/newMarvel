@@ -77,7 +77,7 @@ struct CharDetail: View {
                         }
                     }
                 }
-            }
+            } 
         }
     }
     
