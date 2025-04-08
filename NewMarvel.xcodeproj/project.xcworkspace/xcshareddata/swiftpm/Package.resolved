@@ -1,0 +1,42 @@
+{
+  "originHash" : "ce813b81beb258bb430214e959f04ff01081b6068ab3f2109457f9cc476ac32c",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire",
+      "state" : {
+        "branch" : "master",
+        "revision" : "2e7a741fc2af29bd833eddd45ee8c461987ff250"
+      }
+    },
+    {
+      "identity" : "mbkbasic",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MartinBKock/MBKBasic",
+      "state" : {
+        "branch" : "main",
+        "revision" : "157b4476ca2ab4515f14810c42c981d794ff3b7b"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-algorithms.git",
+      "state" : {
+        "revision" : "87e50f483c54e6efd60e885f7f5aa946cee68023",
+        "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "revision" : "e0ec0f5f3af6f3e4d5e7a19d2af26b481acb6ba8",
+        "version" : "1.0.3"
+      }
+    }
+  ],
+  "version" : 3
+}

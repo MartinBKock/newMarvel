@@ -8,52 +8,17 @@
 import Foundation
 import SwiftUI
 
+
 enum Consts {
     enum App {
         /// The id given to the app in AppStore
         static let appleID = "1234"  // TODO: Set to correct value
-        static let defaultLanguage: Consts.Firebase.Languages = .da
         static let shouldUseTabbar: Bool = false
-    }
-    
-    enum Firebase {
-        enum Languages: String {
-            case da
-            case en
-            
-            static func getCurrentLanguage() -> Consts.Firebase.Languages {
-                guard
-                    let id = Locale.autoupdatingCurrent.language.languageCode?.identifier(.alpha2)
-                else { return Consts.App.defaultLanguage }
-                guard let converted = Consts.Firebase.Languages(rawValue: id)
-                else { return Consts.App.defaultLanguage }
-                return converted
-            }
-        }
-        
-        enum Collections: String {
-            case languages
-            case users
-            case userLogbooks
-            case trainers
-            case workoutPlans
-            case userWorkoutPlans
-            case exercises
-            case exerciseTemplates
-            case meta
-            case creatorTypes
-            case weights
-            case workoutForms
-            case places
-            case equipment
-            case workoutDurations
-            case workoutCategories
-        }
     }
     
     enum UI {
         static let animDuration: TimeInterval = 0.2
-        static let screenWidth: CGFloat = UIScreen.main.bounds.width
+        @MainActor static let screenWidth: CGFloat = UIScreen.main.bounds.width
         
         enum Fonts {
             case h1_default
@@ -68,10 +33,22 @@ enum Consts {
         }
     }
     
+    enum Pagination {
+        @MainActor static let DEFAULT_THRESHOLD_FOR_PAGINATION: CGFloat = UIScreen.main.bounds.height / 2
+    }
+    
     enum URLs {
         
     }
     
+    enum Colors {
+        static let backgroundPrimary = Color("BackgroundPrimary")
+        static let backgroundSecondary = Color("BackgroundSecondary")
+        static let textPrimary = Color("PrimaryText")
+        static let textSecondary = Color("SecondaryText")
+        
+        static let BoxColor = LinearGradient(gradient: Gradient(colors: [Color.red, Color.red, Colors.backgroundSecondary, Color.red, Color.red]), startPoint: .top, endPoint: .bottom)
+    }
 }
 
 extension Consts.UI.Fonts {
@@ -127,4 +104,6 @@ extension Bundle {
     fileprivate func getInfo(_ str: String) -> String {
         infoDictionary?[str] as? String ?? "⚠️"
     }
+    
+
 }

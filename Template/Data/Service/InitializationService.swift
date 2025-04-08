@@ -5,14 +5,6 @@
 //  Created by Martin Kock on 25/11/2024.
 //
 
-
-//
-//  InitializationService.swift
-//  PrepartyGames
-//
-//  Created by Martin Kock on 24/11/2024.
-//
-
 import Foundation
 
 @Observable

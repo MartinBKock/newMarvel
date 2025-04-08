@@ -35,20 +35,11 @@ struct Tabbar: View {
             }
         } else {
             /// If you want to use a custom TabBar or dont want to use a TabBar, set shouldUseTabView to false and add your custom TabBar or View here.
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("\(Injector[\.test].number)")
-                    .textStyle(.btn_default, color: .white)
-                    .onTapGesture {
-                        Injector[\.test].number += 1
-                        Injector[\.nav].push(.view2)
-                    }
-
-            }
-            .padding()
-            .wrapInNavStack(.standard)
+            CategoryView()
+                .onAppear {
+                    print(Injector[\.monitor].isConnected)
+                }
+//            .wrapInNavStack(.standard)
         }
     }
 }

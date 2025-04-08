@@ -18,7 +18,7 @@
                BlueprintIdentifier = "EADA306A2C59341B002646F5"
                BuildableName = "Dev.app"
                BlueprintName = "Dev"
-               ReferencedContainer = "container:Template.xcodeproj">
+               ReferencedContainer = "container:NewMarvel.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "EADA306A2C59341B002646F5"
             BuildableName = "Dev.app"
             BlueprintName = "Dev"
-            ReferencedContainer = "container:Template.xcodeproj">
+            ReferencedContainer = "container:NewMarvel.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "EADA306A2C59341B002646F5"
             BuildableName = "Dev.app"
             BlueprintName = "Dev"
-            ReferencedContainer = "container:Template.xcodeproj">
+            ReferencedContainer = "container:NewMarvel.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

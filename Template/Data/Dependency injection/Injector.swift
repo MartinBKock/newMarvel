@@ -13,11 +13,14 @@ public class Injector {
     // MARK: - Injectable values
     // Services
     @MainActor
-    lazy var auth = FirebaseAuthService()
-    lazy var firestore = FirestoreService()
-    lazy var crash = CrashManager()
     lazy var network = NetworkService()
+    lazy var monitor = NetworkMonitor()
     lazy var initialization = InitializationService()
+    @MainActor
+    lazy var state = StateController()
+    lazy var persistence = PersistenceService()
+    lazy var userDefaults = UserDefaultsService()
+    lazy var imageCache = ImageCacheService()
     
     // Controllers
     lazy var test = TemplateController()

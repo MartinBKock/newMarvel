@@ -18,7 +18,7 @@
                BlueprintIdentifier = "EA1D18C82CF2235C008FBCE3"
                BuildableName = "Live.app"
                BlueprintName = "Live"
-               ReferencedContainer = "container:Template.xcodeproj">
+               ReferencedContainer = "container:NewMarvel.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "EA1D18C82CF2235C008FBCE3"
             BuildableName = "Live.app"
             BlueprintName = "Live"
-            ReferencedContainer = "container:Template.xcodeproj">
+            ReferencedContainer = "container:NewMarvel.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "EA1D18C82CF2235C008FBCE3"
             BuildableName = "Live.app"
             BlueprintName = "Live"
-            ReferencedContainer = "container:Template.xcodeproj">
+            ReferencedContainer = "container:NewMarvel.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
